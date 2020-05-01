@@ -28,15 +28,11 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.util.LongSparseArray;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.FileProvider;
-
-import java.io.File;
 
 import life.knowledge4.videotrimmer.R;
 import life.knowledge4.videotrimmer.utils.BackgroundExecutor;
@@ -89,11 +85,7 @@ public class TimeLineView extends View {
                                                LongSparseArray<Bitmap> thumbnailList = new LongSparseArray<>();
 
                                                MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
-                                               if (Build.VERSION.SDK_INT < 23) {
-                                                   mediaMetadataRetriever.setDataSource(getContext(), Uri.fromFile(new File(mVideoUri.toString())));
-                                               } else {
-                                                   mediaMetadataRetriever.setDataSource(getContext(), FileProvider.getUriForFile(getContext(), getContext().getApplicationContext().getPackageName() + ".utils.GenericFileProvider", new File(mVideoUri.toString())));
-                                               }
+                                               mediaMetadataRetriever.setDataSource(getContext(), mVideoUri);
 
                                                // Retrieve media data
                                                long videoLengthInMs = Integer.parseInt(mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)) * 1000;

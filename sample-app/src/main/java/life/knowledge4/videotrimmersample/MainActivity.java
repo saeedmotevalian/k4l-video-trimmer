@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             if (requestCode == REQUEST_VIDEO_TRIMMER) {
                 final Uri selectedUri = data.getData();
                 if (selectedUri != null) {
-                    startTrimActivity(selectedUri);
+                    startTrimActivity(Uri.parse(selectedUri.toString()));
                 } else {
                     Toast.makeText(MainActivity.this, R.string.toast_cannot_retrieve_selected_video, Toast.LENGTH_SHORT).show();
                 }
